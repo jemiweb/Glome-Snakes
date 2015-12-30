@@ -1,5 +1,6 @@
 # Glome-Snakes
-A non-coder demo of the classic Snakes game linked to Glome for saving games and playing across multiple devices.
+
+A non-coder demo of the classic Snakes game using the Glome platform for account management and playing across multiple devices.
 
 ## Brief / task
 
@@ -15,7 +16,12 @@ These were used and no animals were harmed:
 - Glome API with demo apikey ( https://api.glome.me/simpleapi/ )
 - Any code/text editor ( I like: https://panic.com/coda/ )
 
+## What is Glome?
 
-Enjoy, comment, upgrade, play, learn.
+Glome ( www.glome.me ) is an account management and personalisation platform. We offer a simple API and tools for businesses to serve their users/customers across multiple devices and earn their trust. Nothing is required from the user - no sign-up, no registrations, nothing to install. We create accounts for the business on behalf of the user.
+
+Check out the API: https://api.glome.me/simpleapi/
+
+Enjoy, comment, upgrade, play, learn, reach out and ask us what we could do for you. 
 
 www.glome.me
