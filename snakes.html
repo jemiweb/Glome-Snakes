@@ -13,6 +13,11 @@
 				<script type="text/javascript">        
 				
 				$(document).ready(function(){
+					
+					// unique identifier for the user
+					// created by Glome API and stored to localstorage
+					var GlomeID = localStorage.getItem('GlomeID');
+					
 					//Canvas stuff
 					var canvas = $("#canvas")[0];
 					var ctx = canvas.getContext("2d");
@@ -20,32 +25,26 @@
 					var h = $("#canvas").height();
 					
 					//Lets save the cell width in a variable for easy control
-					var cw = 10;
-					var d;
+					var cw = 10; // width of elements, both food and snake particle
+					var d; // direction of snake movement
 					var paused = false;
 					
-					// score needs to be set from linked accounts
+					// obviously to keep up with the success
 					var score;
 					
-					// Lets create the snake now
-					// OR we continue from a saved snake
-					// ToDo: save snake array
-					var snake_array; //an array of cells to make up the snake
+					//an array of cells to make up the snake
+					var snake_array; 
 					
-					// we might need to put the food where it already is
+					// snake food needs to have a variable
 					var food;
 					
-					var saveData = new Array;
-					
+					// draw the field and prepare the game
 					function init()
 					{
 						d = "right"; //default direction
 						
-						//finally lets display the score
+						// lets display the score
 						score = 0;
-						
-						// let's get the elements from saved values
-						//listData();
 						
 						create_snake();
 						
@@ -68,14 +67,6 @@
 					function loadFromSaved()
 					{
 						
-						console.log("Game values before load...");
-						console.log("Snake: "+ JSON.stringify(snake_array) );
-						console.log("Food: "+ JSON.stringify(food) );
-						console.log("Score: "+ score );
-						console.log("Direction: "+ d );
-						
-						var GlomeID = localStorage.getItem('GlomeID');
-
 						// set info to GlomeID
 						// Using the core $.ajax() method
 						$.ajax({
@@ -112,22 +103,17 @@
 						        // the last one is always on top
 						        items = loopThrough ( json, items );
 										
+										// just printing out values for show
 										$( "#content" ).html( "<pre>"+ items +"</pre>" );
 					
+										// get the data from JSON and put parse it to an array
 										dataset = JSON.parse( json["records"][0]["content"] );
-										
-										console.log("Loading from saved game...");
 										
 										// updating values for core variables
 										snake_array = dataset[0];
 										food = dataset[1];
 										score = dataset[2];
 										d = dataset[3];
-										
-										console.log("Snake: "+ JSON.stringify(snake_array) );
-										console.log("Food: "+ JSON.stringify(food) );
-										console.log("Score: "+ score );
-										console.log("Direction: "+ d );
 										
 										// time to paint the playground
 										paint(); 
@@ -156,17 +142,16 @@
 						if ( game_loop ) {
 							if ( !paused ) {
 								
-								
-									paused = true;
-									
 									clearInterval(game_loop);
+									
+									paused = true;
 								
+									// put things to an array, not required but easier to handle
+									var saveData = new Array;
 									saveData[0] = snake_array;
 									saveData[1] = food;
 									saveData[2] = score;
 									saveData[3] = d;
-									
-									console.log("pause function data: "+ JSON.stringify(saveData) );
 									
 									updateData( JSON.stringify(saveData) );
 							}
@@ -314,7 +299,7 @@
 						
 						//The snake is now keyboard controllable
 						
-						console.log(key);
+						//console.log(key);
 						
 					})
 					

@@ -58,23 +58,17 @@ if( !localStorage.getItem('GlomeID') ) {
 	
 	
 }
-// we have a GlomeID - let's unlock it just to be sure
+// we have a GlomeID
 // a soft account unlocks itself automatically after 1 day
+// commented out the unlocking
 else {
 	
 	// just to keep the code readable...
 	var GlomeID = localStorage.getItem('GlomeID');
 	
+	/*
 	// Using the core $.ajax() method
 	$.ajax({
-	 
-	    /***			
-			curl https://api.glome.me/accounts/{glomeid}/unlock -X
-			PATCH -d
-			apikey={apikey} -d
-			apiuid={uid} -i -l
-			
-			*/
 	    
 	    // The URL for the request
 	    url: "https://api.glome.me/accounts/"+GlomeID+"/unlock",
@@ -110,9 +104,10 @@ else {
 	    
 	// end of unlocking
 	});
-	
+	*/
 	
 	// if pairing is requested, let's pair
+	// sending a pairingkey as a parameter is the trigger
 	if ( getParameterByName('pairingkey') != "" ) {
 		console.log("pairing key found, let's pair");
 		pairSoftAccounts ( getParameterByName('pairingkey') );
@@ -121,6 +116,7 @@ else {
 	
 }
 
+// helper function to get the pairing key right
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -414,7 +410,7 @@ function pairSoftAccounts ( key ) {
 	        
 	        // json is an array/object and we only get one
 	        // we can push it to html
-	        $( "#pair-title" ).html( "Pairing success!" );
+	        $( "#title" ).html( "Pairing success!" );
 					
 					// let's collect all JSON items to a Sting
 	        var items = "";
@@ -422,7 +418,7 @@ function pairSoftAccounts ( key ) {
 	        // looping through the records
 	        items = loopThrough ( json, items );
 					
-					$( "#pair-status" ).html( "<pre>"+ items +"</pre>" );       
+					$( "#content" ).html( "<pre>"+ items +"</pre>" );       
 	        
 	    },
 	 
@@ -432,7 +428,7 @@ function pairSoftAccounts ( key ) {
 	    		var txt = "Problem pairing the SoftAccounts!";
 	    		txt += "<br><br> xhr: <pre>" + JSON.stringify(xhr, null, 2) + "</pre>";
 	    		
-	        $( "#pair-status" ).html( txt );
+	        $( "#status" ).html( txt );
 	    }
 	    
 	// end of set User data
