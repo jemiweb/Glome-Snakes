@@ -1,3 +1,5 @@
+var GlomeID;
+
 // let's check localstorage if there is a GlomeID set
 // if not => let's create one
 if( !localStorage.getItem('GlomeID') ) {
@@ -26,13 +28,14 @@ if( !localStorage.getItem('GlomeID') ) {
 	        
 	        // json is an array/object and we only get one
 	        // we can push it to html
-	        $( "#title" ).html( json.parentapp_title ).append();
+	        $( "#title" ).html( "Created game account (with Glome)" ).append();
 	        
 	        // let's collect all JSON items to a Sting
-	        var items = loopThrough ( json, items );
+	        // var items = loopThrough ( json, items );
 					
-					$( "#content" ).html( items );        
+					$( "#content" ).html( "Welcome. An account was automatically created. To see some info about it, press 'i' key. Happy gaming!" );        
 	        
+	        // storing the GlomeID in browser local storage
 	        localStorage.setItem('GlomeID', json.glomeid );
 	        
 	    },
@@ -63,8 +66,8 @@ if( !localStorage.getItem('GlomeID') ) {
 // commented out the unlocking
 else {
 	
-	// just to keep the code readable...
-	var GlomeID = localStorage.getItem('GlomeID');
+	// update the local GlomeID variable
+	GlomeID = localStorage.getItem('GlomeID');
 	
 	/*
 	// Using the core $.ajax() method
@@ -151,10 +154,7 @@ application[uid]={uid} -i -l
 function getSoftAccountInfo () {
 	
 	// just to keep the code readable...
-	var GlomeID = localStorage.getItem('GlomeID');
-	
-	// put the GlomeID into the content element of the page
-	// $('#content').html( GlomeID );
+	// var GlomeID = localStorage.getItem('GlomeID');
 
 /**** query 1
 
@@ -185,7 +185,7 @@ Here we query the GlomeID for contents
 	    success: function( json ) {
 	        
 	        // we can push it to html
-	        $( "#title" ).html( "GlomeID info" );
+	        $( "#title" ).html( "Account info" );
 	        
 	        // let's collect all JSON items to a Sting
 	        var items = "";
@@ -222,9 +222,7 @@ application[apikey]={apikey} -d
 application[uid]={uid} -i -l
 
 */
-function listData ( update ) {
-	
-	var GlomeID = localStorage.getItem('GlomeID');
+function listData () {
 
 	// set info to GlomeID
 	// Using the core $.ajax() method
@@ -262,18 +260,10 @@ function listData ( update ) {
 	        // the last one is always on top
 	        items = loopThrough ( json, items );
 					
-					$( "#content" ).html( "<pre>"+ items +"</pre>" );
+					$( "#content" ).html( items );
 
 					dataset = json["records"][0]["content"];	
 					console.log("List data on server:"+ dataset );
-					
-					// updating the game with last save
-					if ( update ) {
-						snake_array = dataset[0];
-						food = dataset[1];
-						score = dataset[2];
-						d = dataset[3];
-					} 
 					       
 	    },
 	 
@@ -310,7 +300,7 @@ function getSyncKey ( ) {
 	
 	    // The URL for the request
 	    // here we use the GlomeID to get the right user data
-	    url: "https://api.glome.me/connections/"+localStorage.getItem('GlomeID')+"/initialize",
+	    url: "https://api.glome.me/connections/"+GlomeID+"/initialize",
 	 
 	    // The data to send (will be converted to a query string)
 	    data: {
@@ -333,12 +323,13 @@ function getSyncKey ( ) {
 	        $( "#title" ).html( "Sync key generated" );
 					
 					// let's collect all JSON items to a Sting
-	        var items = "";
+	        // var items = "";
 	        
 	        // looping through the records
-	        items = loopThrough ( json, items );
+	        // items = loopThrough ( json, items );
 					
 					//$( "#content" ).html( "<pre>"+ items +"</pre>" );
+					$( "#content" ).html( "Sync link:"+window.location.href+"?pairingkey="+json.code );
 					
 					// opening up the mail
 					var url = "mailto:user@example.com?subject=Send link to self";
@@ -389,7 +380,7 @@ function pairSoftAccounts ( key ) {
 	
 	    // The URL for the request
 	    // here we use the GlomeID to get the right user data
-	    url: "https://api.glome.me/connections/"+localStorage.getItem('GlomeID')+"/establish",
+	    url: "https://api.glome.me/connections/"+GlomeID+"/establish",
 	 
 	    // The data to send (will be converted to a query string)
 	    data: {
@@ -413,12 +404,12 @@ function pairSoftAccounts ( key ) {
 	        $( "#title" ).html( "Pairing success!" );
 					
 					// let's collect all JSON items to a Sting
-	        var items = "";
+	        // var items = "";
 	        
 	        // looping through the records
-	        items = loopThrough ( json, items );
+	        // items = loopThrough ( json, items );
 					
-					$( "#content" ).html( "<pre>"+ items +"</pre>" );       
+					// $( "#content" ).html( items );       
 	        
 	    },
 	 
@@ -452,7 +443,7 @@ function listPairedAccounts ( ) {
 	    
 	    // The URL for the request
 	    // here we use the GlomeID to get the right user data
-	    url: "https://api.glome.me/connections/"+localStorage.getItem('GlomeID')+"/list",
+	    url: "https://api.glome.me/connections/"+GlomeID+"/list",
 	 
 	    // The data to send (will be converted to a query string)
 	    data: {
@@ -472,7 +463,7 @@ function listPairedAccounts ( ) {
 	        
 	        // json is an array/object and we only get one
 	        // we can push it to html
-	        $( "#device-title" ).html( "Listing paired soft accounts." );
+	        $( "#title" ).html( "Listing paired soft accounts." );
 					
 					// let's collect all JSON items to a Sting
 	        var items = "";
@@ -480,7 +471,7 @@ function listPairedAccounts ( ) {
 	        // looping through the records
 	        items = loopThrough ( json, items );
 					
-					$( "#device-status" ).html( "<pre>"+ items +"</pre>" );       
+					$( "#content" ).html( "<pre>"+ items +"</pre>" );       
 	        
 	    },
 	 
@@ -490,7 +481,7 @@ function listPairedAccounts ( ) {
 	    		var txt = "Problem listing the paired SoftAccount!";
 	    		txt += "<br><br> xhr: <pre>" + JSON.stringify(xhr, null, 2) + "</pre>";
 	    		
-	        $( "#device-status" ).html( txt );
+	        $( "#status" ).html( txt );
 	    }
 	    
 	// end of set User data
@@ -524,7 +515,7 @@ function updateData ( txt ) {
 	
 	    // The URL for the request
 	    // here we use the GlomeID to get the right user data
-	    url: "https://api.glome.me/data/"+localStorage.getItem('GlomeID')+"/save",
+	    url: "https://api.glome.me/data/"+GlomeID+"/save",
 	 
 	    // The data to send (will be converted to a query string)
 	    data: {

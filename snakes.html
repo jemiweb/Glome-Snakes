@@ -94,7 +94,7 @@
 						        
 						        // json is an array/object and we only get one
 						        // we can push it to html
-						        $( "#title" ).html( "Listing data from user" );
+						        $( "#title" ).html( "Loaded game data" );
 						        
 						        // let's collect all JSON items to a Sting
 						        var items = "";
@@ -104,7 +104,7 @@
 						        items = loopThrough ( json, items );
 										
 										// just printing out values for show
-										$( "#content" ).html( "<pre>"+ items +"</pre>" );
+										$( "#content" ).html( items );
 					
 										// get the data from JSON and put parse it to an array
 										dataset = JSON.parse( json["records"][0]["content"] );
@@ -324,7 +324,7 @@
 	Continue on any other device by clicking the button: <button onclick="getSyncKey()">Glome Connect</button>
 	<br>
 	The button will open up your email with a pre-filled content.
-	
+	<hr>
 	<div id="title"></div>
 	<div id="content"></div>
 	<div id="status"></div>
