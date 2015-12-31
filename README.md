@@ -16,6 +16,10 @@ These were used and no animals were harmed:
 - Glome API with demo apikey ( https://api.glome.me/simpleapi/ )
 - Any code/text editor ( I like: https://panic.com/coda/ )
 
+## Snakes Demo
+
+Play the demo: http://jemiweb.github.io/Glome-Snakes/snakes.html
+
 ## What is Glome?
 
 Glome ( www.glome.me ) is an account management and personalisation platform. We offer a simple API and tools for businesses to serve their users/customers across multiple devices and earn their trust. Nothing is required from the user - no sign-up, no registrations, nothing to install. We create accounts for the business on behalf of the user.
