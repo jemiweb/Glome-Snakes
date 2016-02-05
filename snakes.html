@@ -51,6 +51,8 @@
 						create_food(); //Now we can see the food particle
 						
 						paint();
+						
+						buttonControl(); // control with buttons
 					}
 					init();
 					
@@ -303,6 +305,57 @@
 						
 					})
 					
+					// mobile buttons to steer & control
+					// we need to follow the document buttons, and when
+					// a button is clicked, invoke a function
+					function buttonControl() {
+						
+						// start the game
+						//if( key == "start" ) start();
+						$( "#start" ).bind( "click", function() {
+							start();
+						});
+						
+						// load a saved game
+						//if( key == "load" ) loadFromSaved();
+						$( "#load" ).bind( "click", function() {
+							loadFromSaved();
+						});
+						
+						// if pause = space
+						//if( key == "pause" ) pause();
+						$( "#pause" ).bind( "click", function() {
+							pause();
+						});
+						
+						// if "show info "the i key"
+						//if( key == "info" ) listData();
+						$( "#info" ).bind( "click", function() {
+							listData();
+						});
+							
+						//We will add another clause to prevent reverse gear
+						// if(key == "left" && d != "right" && !paused) d = "left";
+						$( "#left" ).bind( "click", function() {
+							if( d != "right" && !paused ) d = "left";
+						});
+						
+						// else if(key == "up" && d != "down" && !paused) d = "up";
+						$( "#up" ).bind( "click", function() {
+							if( d != "down" && !paused) d = "up";
+						});
+						
+						// else if(key == "right" && d != "left" && !paused) d = "right";
+						$( "#right" ).bind( "click", function() {
+							if( d != "left" && !paused) d = "right";
+						});
+						
+						// else if(key == "down" && d != "up" && !paused) d = "down";
+						$( "#down" ).bind( "click", function() {
+							if( d != "up" && !paused) d = "down";
+						});
+					}
+					
 				});
 				
 				</script>
@@ -331,7 +384,18 @@
 </div>
 
 <!-- Lets make a simple snake game -->
-<canvas id="canvas" width="450" height="450" style="float:left;"></canvas>
+<div id="game" style=" width:450px; float:left; padding-right:10px;">
+	<canvas id="canvas" width="450" height="450"></canvas>
+	
+	<button id="start" value="start">start</button>
+	<button id="pause" value="pause">pause</button>
+	<button id="load" value="load">load</button>
+	<br>
+	<button id="left" value="left">left</button>
+	<button id="right" value="right">right</button>
+	<button id="up" value="up">up</button>
+	<button id="down" value="down">down</button>
+</div>
 
     </body>
 </html>
