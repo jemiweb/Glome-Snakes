@@ -1,5 +1,6 @@
 var GlomeID;
 
+
 // let's check localstorage if there is a GlomeID set
 // if not => let's create one
 if( !localStorage.getItem('GlomeID') ) {
@@ -69,6 +70,7 @@ else {
 	// update the local GlomeID variable
 	GlomeID = localStorage.getItem('GlomeID');
 	
+	/*
 	// Using the core $.ajax() method
 	$.ajax({
 	    
@@ -106,6 +108,7 @@ else {
 	    
 	// end of unlocking
 	});
+	*/
 	
 	// if pairing is requested, let's pair
 	// sending a pairingkey as a parameter is the trigger
